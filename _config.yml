@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s26/proj-frontiers-s26-09
 owner: ucsb-cs156-s26
 repo_name: proj-frontiers-s26-09
-pull_requests: []
+pull_requests: [{"author":{"id":"MDQ6VXNlcjM3NzUzNzYy","is_bot":false,"login":"RitxmSaha","name":"Ritam Saha"},"headRefName":"Ritam-issue-12-meaningful-log-output","number":22,"title":"rs - Log job parameters in CreateStudentOrStaffRepositoriesJob","url":"https://github.com/ucsb-cs156-s26/proj-frontiers-s26-09/pull/22"}]
