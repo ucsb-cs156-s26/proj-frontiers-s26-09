@@ -20,8 +20,8 @@ public class DeleteReposJob implements JobContextConsumer {
 
   @Override
   public Course getCourse() {
-<span class="pc bpc" id="L23" title="2 of 4 branches missed.">    if (courseId == null || courseRepository == null) {</span>
-<span class="nc" id="L24">      return null;</span>
+<span class="fc bfc" id="L23" title="All 4 branches covered.">    if (courseId == null || courseRepository == null) {</span>
+<span class="fc" id="L24">      return null;</span>
     }
 <span class="fc" id="L26">    return courseRepository.findById(courseId).orElse(null);</span>
   }
@@ -35,7 +35,7 @@ public class DeleteReposJob implements JobContextConsumer {
     }
 
 <span class="fc" id="L37">    Course course = courseOpt.get();</span>
-<span class="pc bpc" id="L38" title="1 of 4 branches missed.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
 <span class="fc" id="L39">      ctx.log(&quot;ERROR: Course has no linked GitHub organization&quot;);</span>
 <span class="fc" id="L40">      return;</span>
     }
@@ -61,8 +61,8 @@ public class DeleteReposJob implements JobContextConsumer {
 <span class="fc" id="L61">        ctx.log(&quot;ERROR deleting repo &quot; + repoName + &quot;: &quot; + e.getMessage());</span>
 <span class="fc" id="L62">      }</span>
 
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">      if (sleepMillis &gt; 0) {</span>
-<span class="nc" id="L65">        Thread.sleep(sleepMillis);</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">      if (sleepMillis &gt; 0) {</span>
+<span class="fc" id="L65">        Thread.sleep(sleepMillis);</span>
       }
 <span class="fc" id="L67">    }</span>
 

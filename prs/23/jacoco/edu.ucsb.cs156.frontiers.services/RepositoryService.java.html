@@ -290,13 +290,13 @@ public class RepositoryService {
 <span class="fc" id="L290">          restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity, String.class);</span>
 
 <span class="fc" id="L292">      JsonNode repos = mapper.readTree(response.getBody());</span>
-<span class="pc bpc" id="L293" title="1 of 4 branches missed.">      if (!repos.isArray() || repos.isEmpty()) {</span>
+<span class="fc bfc" id="L293" title="All 4 branches covered.">      if (!repos.isArray() || repos.isEmpty()) {</span>
 <span class="fc" id="L294">        break;</span>
       }
 
 <span class="fc bfc" id="L297" title="All 2 branches covered.">      for (JsonNode repo : repos) {</span>
 <span class="fc" id="L298">        String repoName = repo.path(&quot;name&quot;).asText(null);</span>
-<span class="pc bpc" id="L299" title="1 of 4 branches missed.">        if (repoName != null &amp;&amp; repoName.startsWith(prefix)) {</span>
+<span class="fc bfc" id="L299" title="All 4 branches covered.">        if (repoName != null &amp;&amp; repoName.startsWith(prefix)) {</span>
 <span class="fc" id="L300">          repoNames.add(repoName);</span>
         }
 <span class="fc" id="L302">      }</span>
@@ -320,10 +320,10 @@ public class RepositoryService {
 <span class="fc" id="L320">      restTemplate.exchange(endpoint, HttpMethod.GET, requestEntity, String.class);</span>
 <span class="fc" id="L321">      return true;</span>
 <span class="fc" id="L322">    } catch (HttpClientErrorException e) {</span>
-<span class="pc bpc" id="L323" title="1 of 2 branches missed.">      if (e.getStatusCode().equals(HttpStatus.CONFLICT)) {</span>
+<span class="fc bfc" id="L323" title="All 2 branches covered.">      if (e.getStatusCode().equals(HttpStatus.CONFLICT)) {</span>
 <span class="fc" id="L324">        return false;</span>
       }
-<span class="nc" id="L326">      throw e;</span>
+<span class="fc" id="L326">      throw e;</span>
     }
   }
 
