@@ -27,7 +27,7 @@ test("Calls individual repository assignment successfully", async () => {
   );
 
   await screen.findByTestId("IndividualAssignmentForm-submit");
-  fireEvent.change(screen.getByLabelText("Repository Prefix"), {
+  fireEvent.change(screen.getByTestId("IndividualAssignmentForm-repoPrefix"), {
     target: { value: "test" },
   });
   fireEvent.click(screen.getByTestId("IndividualAssignmentForm-submit"));
@@ -54,7 +54,7 @@ test("Sends non-default creation option to backend", async () => {
 
   await screen.findByTestId("IndividualAssignmentForm-submit");
 
-  fireEvent.change(screen.getByLabelText("Repository Prefix"), {
+  fireEvent.change(screen.getByTestId("IndividualAssignmentForm-repoPrefix"), {
     target: { value: "test-non-default" },
   });
 
@@ -135,4 +135,43 @@ test("Sends non-default team creation option to backend", async () => {
     isPrivate: false,
     permissions: "ADMIN",
   });
+});
+
+test("Calls delete repos job successfully", async () => {
+  axiosMock.onDelete("/api/repos").reply(200);
+  const client = new QueryClient();
+  render(
+    <QueryClientProvider client={client}>
+      <AssignmentTabComponent courseId={7} />
+    </QueryClientProvider>,
+  );
+
+  await screen.findByTestId("DeleteReposForm-submit");
+  fireEvent.change(screen.getByTestId("DeleteReposForm-prefix"), {
+    target: { value: "lab01" },
+  });
+  fireEvent.click(screen.getByTestId("DeleteReposForm-submit"));
+  await waitFor(() => expect(mockToast).toHaveBeenCalled());
+  expect(mockToast).toBeCalledWith("Delete repositories job successfully started.");
+  expect(axiosMock.history.delete.length).toEqual(1);
+  expect(axiosMock.history.delete[0].params).toEqual({
+    courseId: 7,
+    prefix: "lab01",
+  });
+});
+
+test("Shows delete repos help text", async () => {
+  const client = new QueryClient();
+  render(
+    <QueryClientProvider client={client}>
+      <AssignmentTabComponent courseId={7} />
+    </QueryClientProvider>,
+  );
+
+  expect(
+    screen.getByText(
+      "Delete all repos in the organization that have names starting with the prefix below and have no commits.",
+    ),
+  ).toBeInTheDocument();
+  expect(screen.getByTestId("DeleteRepos-help")).toBeInTheDocument();
 });
