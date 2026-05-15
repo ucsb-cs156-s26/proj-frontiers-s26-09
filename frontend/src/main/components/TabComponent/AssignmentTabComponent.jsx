@@ -68,9 +68,12 @@ export default function AssignmentTabComponent({ courseId }) {
     },
   });
 
-  const deleteReposMutation = useBackendMutation(objectToAxiosParamsDeleteRepos, {
-    onSuccess: onSuccessDeleteRepos,
-  });
+  const deleteReposMutation = useBackendMutation(
+    objectToAxiosParamsDeleteRepos,
+    {
+      onSuccess: onSuccessDeleteRepos,
+    },
+  );
 
   const postDeleteRepos = (deleteReposRequest) => {
     deleteReposMutation.mutate(deleteReposRequest);
@@ -121,8 +124,8 @@ export default function AssignmentTabComponent({ courseId }) {
           </Card.Header>
           <Card.Body>
             <p className="text-muted small">
-              Delete all repos in the organization that have names starting
-              with the prefix below and have no commits.
+              Delete all repos in the organization that have names starting with
+              the prefix below and have no commits.
             </p>
             <DeleteReposForm submitAction={postDeleteRepos} />
           </Card.Body>

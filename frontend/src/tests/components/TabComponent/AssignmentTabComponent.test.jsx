@@ -152,7 +152,9 @@ test("Calls delete repos job successfully", async () => {
   });
   fireEvent.click(screen.getByTestId("DeleteReposForm-submit"));
   await waitFor(() => expect(mockToast).toHaveBeenCalled());
-  expect(mockToast).toBeCalledWith("Delete repositories job successfully started.");
+  expect(mockToast).toBeCalledWith(
+    "Delete repositories job successfully started.",
+  );
   expect(axiosMock.history.delete.length).toEqual(1);
   expect(axiosMock.history.delete[0].params).toEqual({
     courseId: 7,
