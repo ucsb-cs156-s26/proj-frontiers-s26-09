@@ -39,7 +39,7 @@ public class CreateTeamRepositoriesJob implements JobContextConsumer {
 <span class="fc" id="L39">    }</span>
 
     Pattern teamPattern =
-<span class="pc bpc" id="L42" title="1 of 4 branches missed.">        teamRegex == null || teamRegex.isBlank() ? null : Pattern.compile(teamRegex);</span>
+<span class="fc bfc" id="L42" title="All 4 branches covered.">        teamRegex == null || teamRegex.isBlank() ? null : Pattern.compile(teamRegex);</span>
 
 <span class="fc bfc" id="L44" title="All 2 branches covered.">    for (Team team : course.getTeams()) {</span>
 <span class="fc bfc" id="L45" title="All 4 branches covered.">      if (teamPattern != null &amp;&amp; !teamPattern.matcher(team.getName()).matches()) {</span>
