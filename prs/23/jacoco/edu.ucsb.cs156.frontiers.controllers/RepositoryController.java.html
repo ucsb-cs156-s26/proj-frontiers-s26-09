@@ -90,45 +90,47 @@ import org.springframework.web.bind.annotation.RestController;
       @RequestParam Long courseId,
       @RequestParam String repoPrefix,
       @RequestParam Optional&lt;Boolean&gt; isPrivate,
-      @RequestParam RepositoryPermissions permissions) {
-<span class="fc" id="L94">    Course course =</span>
+      @RequestParam RepositoryPermissions permissions,
+      @RequestParam Optional&lt;String&gt; teamRegex) {
+<span class="fc" id="L95">    Course course =</span>
         courseRepository
-<span class="fc" id="L96">            .findById(courseId)</span>
-<span class="fc" id="L97">            .orElseThrow(() -&gt; new EntityNotFoundException(Course.class, courseId));</span>
-<span class="fc bfc" id="L98" title="All 4 branches covered.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
-<span class="fc" id="L99">      throw new NoLinkedOrganizationException(course.getCourseName());</span>
+<span class="fc" id="L97">            .findById(courseId)</span>
+<span class="fc" id="L98">            .orElseThrow(() -&gt; new EntityNotFoundException(Course.class, courseId));</span>
+<span class="fc bfc" id="L99" title="All 4 branches covered.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
+<span class="fc" id="L100">      throw new NoLinkedOrganizationException(course.getCourseName());</span>
     } else {
       CreateTeamRepositoriesJob job =
-<span class="fc" id="L102">          CreateTeamRepositoriesJob.builder()</span>
-<span class="fc" id="L103">              .repositoryPrefix(repoPrefix)</span>
-<span class="fc" id="L104">              .isPrivate(isPrivate.orElse(false))</span>
-<span class="fc" id="L105">              .repositoryService(repositoryService)</span>
-<span class="fc" id="L106">              .githubTeamService(githubTeamService)</span>
-<span class="fc" id="L107">              .course(course)</span>
-<span class="fc" id="L108">              .permissions(permissions)</span>
-<span class="fc" id="L109">              .build();</span>
-<span class="fc" id="L110">      return jobService.runAsJob(job);</span>
+<span class="fc" id="L103">          CreateTeamRepositoriesJob.builder()</span>
+<span class="fc" id="L104">              .repositoryPrefix(repoPrefix)</span>
+<span class="fc" id="L105">              .isPrivate(isPrivate.orElse(false))</span>
+<span class="fc" id="L106">              .repositoryService(repositoryService)</span>
+<span class="fc" id="L107">              .githubTeamService(githubTeamService)</span>
+<span class="fc" id="L108">              .course(course)</span>
+<span class="fc" id="L109">              .permissions(permissions)</span>
+<span class="fc" id="L110">              .teamRegex(teamRegex.orElse(null))</span>
+<span class="fc" id="L111">              .build();</span>
+<span class="fc" id="L112">      return jobService.runAsJob(job);</span>
     }
   }
 
   @DeleteMapping(&quot;&quot;)
   @PreAuthorize(&quot;@CourseSecurity.hasManagePermissions(#root, #courseId)&quot;)
   public Job deleteRepos(@RequestParam Long courseId, @RequestParam String prefix) {
-<span class="fc" id="L117">    Course course =</span>
+<span class="fc" id="L119">    Course course =</span>
         courseRepository
-<span class="fc" id="L119">            .findById(courseId)</span>
-<span class="fc" id="L120">            .orElseThrow(() -&gt; new EntityNotFoundException(Course.class, courseId));</span>
-<span class="fc bfc" id="L121" title="All 4 branches covered.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
-<span class="fc" id="L122">      throw new NoLinkedOrganizationException(course.getCourseName());</span>
+<span class="fc" id="L121">            .findById(courseId)</span>
+<span class="fc" id="L122">            .orElseThrow(() -&gt; new EntityNotFoundException(Course.class, courseId));</span>
+<span class="fc bfc" id="L123" title="All 4 branches covered.">    if (course.getOrgName() == null || course.getInstallationId() == null) {</span>
+<span class="fc" id="L124">      throw new NoLinkedOrganizationException(course.getCourseName());</span>
     } else {
       DeleteReposJob job =
-<span class="fc" id="L125">          DeleteReposJob.builder()</span>
-<span class="fc" id="L126">              .courseId(courseId)</span>
-<span class="fc" id="L127">              .prefix(prefix)</span>
-<span class="fc" id="L128">              .courseRepository(courseRepository)</span>
-<span class="fc" id="L129">              .repositoryService(repositoryService)</span>
-<span class="fc" id="L130">              .build();</span>
-<span class="fc" id="L131">      return jobService.runAsJob(job);</span>
+<span class="fc" id="L127">          DeleteReposJob.builder()</span>
+<span class="fc" id="L128">              .courseId(courseId)</span>
+<span class="fc" id="L129">              .prefix(prefix)</span>
+<span class="fc" id="L130">              .courseRepository(courseRepository)</span>
+<span class="fc" id="L131">              .repositoryService(repositoryService)</span>
+<span class="fc" id="L132">              .build();</span>
+<span class="fc" id="L133">      return jobService.runAsJob(job);</span>
     }
   }
 }
