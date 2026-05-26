@@ -36,6 +36,7 @@ frontiers,edu.ucsb.cs156.frontiers.services,RepositoryService,0,527,0,28,0,128,0
 frontiers,edu.ucsb.cs156.frontiers.services,OrganizationMemberService,0,465,0,20,0,105,0,23,0,13
 frontiers,edu.ucsb.cs156.frontiers.services,GithubTeamService.GithubTeamInfo,0,18,0,0,0,3,0,2,0,2
 frontiers,edu.ucsb.cs156.frontiers.services,CurrentUserService,0,10,0,2,0,2,0,3,0,2
+frontiers,edu.ucsb.cs156.frontiers.services,CourseStaffDTOService,0,81,0,0,0,21,0,6,0,6
 frontiers,edu.ucsb.cs156.frontiers.controllers,CoursesController.RosterStudentCoursesDTO,0,27,0,0,0,1,0,1,0,1
 frontiers,edu.ucsb.cs156.frontiers.controllers,CustomErrorController,0,129,0,14,0,29,0,10,0,3
 frontiers,edu.ucsb.cs156.frontiers.controllers,InstructorsController,0,67,0,2,0,15,0,6,0,5
@@ -75,6 +76,7 @@ frontiers,edu.ucsb.cs156.frontiers.models,UpsertResponse,0,12,0,0,0,2,0,2,0,2
 frontiers,edu.ucsb.cs156.frontiers.models,RosterStudentDTO,0,78,0,2,0,16,0,3,0,2
 frontiers,edu.ucsb.cs156.frontiers.models,LoadResult,0,15,0,0,0,1,0,1,0,1
 frontiers,edu.ucsb.cs156.frontiers.models,UserDataDTO,0,30,0,0,0,12,0,1,0,1
+frontiers,edu.ucsb.cs156.frontiers.models,CourseStaffDTO,0,31,0,2,0,12,0,2,0,1
 frontiers,edu.ucsb.cs156.frontiers.services.jobs,JobService,0,111,0,2,0,33,0,8,0,7
 frontiers,edu.ucsb.cs156.frontiers.services.jobs,JobContextFactory,0,13,0,0,0,4,0,2,0,2
 frontiers,edu.ucsb.cs156.frontiers.services.jobs,JobContextConsumer,0,2,0,0,0,1,0,1,0,1
