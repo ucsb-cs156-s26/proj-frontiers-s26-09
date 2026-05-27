@@ -6,4 +6,13 @@ const hideOrganizationAgeWarning = {
   showOrganizationAgeWarning: false,
 };
 
-export { showOrganizationAgeWarning, hideOrganizationAgeWarning };
+const showDefaultBasePermissionWarning = {
+  showOrganizationAgeWarning: false,
+  showDefaultBasePermissions: true,
+};
+
+export {
+  hideOrganizationAgeWarning,
+  showDefaultBasePermissionWarning,
+  showOrganizationAgeWarning,
+};

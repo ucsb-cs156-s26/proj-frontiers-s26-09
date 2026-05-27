@@ -68,7 +68,7 @@ export default function StaffCourseShowPage() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <CourseWarningBanner courseId={courseId} />
+      <CourseWarningBanner courseId={courseId} orgName={course?.orgName} />
       {!course ? (
         <div data-testid={`${testId}-loading`}>Course: Loading...</div>
       ) : (

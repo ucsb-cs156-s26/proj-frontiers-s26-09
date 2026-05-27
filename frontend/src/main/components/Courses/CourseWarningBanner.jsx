@@ -1,7 +1,10 @@
-import { Alert } from "react-bootstrap";
-import { useBackend } from "main/utils/useBackend";
+import { useEffect, useState } from "react";
+import { Alert, Button } from "react-bootstrap";
+import { useBackend, useBackendMutation } from "main/utils/useBackend";
 
-export function CourseWarningBanner({ courseId }) {
+export function CourseWarningBanner({ courseId, orgName }) {
+  const [isBasePermissionWarningHidden, setIsBasePermissionWarningHidden] =
+    useState(false);
   const { data: warnings } = useBackend(
     [`/api/courses/warnings/${courseId}`],
     {
@@ -11,10 +14,29 @@ export function CourseWarningBanner({ courseId }) {
     undefined,
     true,
     {
-      placeholderData: { showOrganizationAgeWarning: false },
+      placeholderData: {
+        showOrganizationAgeWarning: false,
+        showDefaultBasePermissions: false,
+      },
       staleTime: "static",
     },
   );
+  const hideWarningMutation = useBackendMutation(
+    () => ({
+      method: "POST",
+      url: `/api/courses/warnings/hideBasePermissionWarning/${courseId}`,
+    }),
+    {
+      onSuccess: () => setIsBasePermissionWarningHidden(true),
+    },
+  );
+
+  useEffect(() => {
+    setIsBasePermissionWarningHidden(false);
+  }, [courseId]);
+
+  const shouldShowBasePermissionWarning =
+    warnings?.showDefaultBasePermissions && !isBasePermissionWarningHidden;
 
   return (
     <>
@@ -22,6 +44,35 @@ export function CourseWarningBanner({ courseId }) {
         <Alert variant="warning">
           Warning: This GitHub Organization is less than 30 days old. You will
           experience difficulties enrolling more than 50 students in a day.
+        </Alert>
+      )}
+      {shouldShowBasePermissionWarning && (
+        <Alert variant="warning">
+          Warning: the organization setting for Default Base Permission is not
+          the recommended value of None. This means that students in the
+          organization may be able to access other students&apos; private repos.{" "}
+          {orgName ? (
+            <Alert.Link
+              href={`https://github.com/organizations/${orgName}/settings/member_privileges`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              You can change that setting here
+            </Alert.Link>
+          ) : (
+            "You can change that setting here"
+          )}
+          .
+          <div className="mt-2">
+            <Button
+              variant="outline-dark"
+              size="sm"
+              onClick={() => hideWarningMutation.mutate()}
+              disabled={hideWarningMutation.isPending}
+            >
+              {hideWarningMutation.isPending ? "Hiding..." : "Hide"}
+            </Button>
+          </div>
         </Alert>
       )}
     </>
