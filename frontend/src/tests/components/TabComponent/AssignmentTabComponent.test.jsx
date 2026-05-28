@@ -212,4 +212,3 @@ test("Sends team regex to backend", async () => {
     teamRegex: "^team0[12]$",
   });
 });
-
